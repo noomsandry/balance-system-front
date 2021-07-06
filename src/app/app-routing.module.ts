@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesLayoutComponent } from '@layouts/pages-layout/pages-layout.component';
+import { AuthGuard } from '@shared/guards';
 
 const routes: Routes = [
   {
     path: '',
     component: PagesLayoutComponent,
+    canActivate: [AuthGuard],
+
     children: [
       {
         path: '',
         loadChildren: () =>
-          import('./pages/pages.module').then(
-            (m) => m.PagesModule
-          ),
+          import('./pages/pages.module').then((m) => m.PagesModule),
       },
     ],
   },
@@ -22,9 +23,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./auth/auth.module').then(
-            (m) => m.AuthModule
-          ),
+          import('./auth/auth.module').then((m) => m.AuthModule),
       },
     ],
   },
