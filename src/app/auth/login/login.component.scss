@@ -1,0 +1,18 @@
+#login-box {
+  max-width: 600px;
+  height: 320px;
+  background-color: #eaeaea;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.text {
+  margin: 10px 0px;
+}
+
+.submit {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: start;
+}

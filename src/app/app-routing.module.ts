@@ -10,8 +10,20 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./pages/transaction/transaction.module').then(
-            (m) => m.TransactionModule
+          import('./pages/pages.module').then(
+            (m) => m.PagesModule
+          ),
+      },
+    ],
+  },
+  {
+    path: 'auth',
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./auth/auth.module').then(
+            (m) => m.AuthModule
           ),
       },
     ],
