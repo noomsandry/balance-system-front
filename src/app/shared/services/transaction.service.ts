@@ -4,17 +4,16 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Transaction } from '@shared/models';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransactionService {
-  private url = `http://localhost:3000/`;
-
   constructor(private _http: HttpClient) {}
 
   list(): Observable<Transaction[]> {
-    let path = `${this.url}transaction`;
+    let path = `${environment.apiUrl}/transaction`;
     return this._http.get(`${path}`).pipe(map((data: any) => data.data));
   }
 }

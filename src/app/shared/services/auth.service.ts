@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, EMPTY } from 'rxjs';
 import { tap, pluck } from 'rxjs/operators';
 
-import { LocalStorageProvider } from '@shared/provider/local-storage.provider';
+import { LocalStorageProvider } from '@shared/provider';
 import { User } from '@shared/models';
 import { environment } from '@environments/environment';
 
@@ -15,7 +15,7 @@ interface AuthResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private tokenKey = 'authToken';
+  private tokenKey = 'token';
   private user$ = new BehaviorSubject<User | null>(null);
 
   constructor(
@@ -25,7 +25,7 @@ export class AuthService {
 
   login(info): Observable<User> {
     return this.http
-      .post<AuthResponse>(environment.apiUrl + '/auth/login', info)
+      .post<AuthResponse>(`${environment.apiUrl}/auth/login`, info)
       .pipe(
         tap(({ token, user }) => {
           this.setUser(user);
@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   register(user): Observable<User> {
-    return this.http.post<User>(environment.apiUrl + '/auth/register', user);
+    return this.http.post<User>(`${environment.apiUrl}/auth/register`, user);
   }
 
   setUser(user: User | null): void {
@@ -50,11 +50,11 @@ export class AuthService {
   me(): Observable<User> {
     const token: string | null = this.localStorage.getObject(this.tokenKey);
 
-    if (token === null) {
+    if (!token) {
       return EMPTY;
     }
 
-    return this.http.get<AuthResponse>(environment.apiUrl + '/auth/me').pipe(
+    return this.http.get<AuthResponse>(`${environment.apiUrl}/users/me`).pipe(
       tap(({ user }) => this.setUser(user)),
       pluck('user')
     );

@@ -8,8 +8,14 @@ import { StoreModule } from '@ngrx/store';
 
 import { AuthHeaderInterceptor } from '@shared/interceptors';
 import { SharedModule } from '@shared/shared.module';
+import { AuthService } from '@shared/services';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+export function appInitializerFactory(authService: AuthService) {
+  return () => authService.checkTheUserOnTheFirstLoad();
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +30,12 @@ import { AppComponent } from './app.component';
     SharedModule,
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFactory,
+      multi: true,
+      deps: [AuthService],
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHeaderInterceptor,

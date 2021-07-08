@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesLayoutComponent } from '@layouts/pages-layout/pages-layout.component';
-import { AuthGuard } from '@shared/guards';
+import { AuthGuard, PublicGuard } from '@shared/guards';
 
 const routes: Routes = [
   {
     path: '',
     component: PagesLayoutComponent,
     canActivate: [AuthGuard],
-
     children: [
       {
         path: '',
@@ -19,6 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'auth',
+    canActivate: [PublicGuard],
     children: [
       {
         path: '',
