@@ -13,11 +13,4 @@ export class ToastComponent {
   isTemplate(toast) {
     return toast.textOrTpl instanceof TemplateRef;
   }
-
-  showDanger(dangerTpl) {
-    this.toastService.show(dangerTpl, {
-      classname: 'bg-danger text-light',
-      delay: 3000,
-    });
-  }
 }

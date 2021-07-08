@@ -3,60 +3,109 @@
     <div id="login-row" class="row justify-content-center align-items-center">
       <div id="login-column" class="col-md-6">
         <div id="login-box" class="col-md-12">
-          <form id="login-form" class="form" action="" method="post">
+          <form
+            id="login-form"
+            class="form"
+            action=""
+            method="post"
+            [formGroup]="registerForm"
+            (ngSubmit)="register()"
+          >
             <h3 class="text-center text-primary">Register</h3>
             <div class="form-group">
-              <label for="username" class="text">Name</label><br />
+              <label for="name" class="text">Name</label><br />
               <input
                 type="text"
-                name="username"
-                id="username"
+                name="name"
+                id="name"
                 class="form-control"
+                formControlName="name"
+                required
+                [ngClass]="{
+                  'is-invalid':
+                    submited && name.invalid && name.hasError('required')
+                }"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  submited &&
+                  repeatPassword.invalid &&
+                  repeatPassword.hasError('required')
+                "
+              >
+                Name input is required value
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="lastname" class="text">Last Name</label><br />
+              <input
+                type="text"
+                name="lastname"
+                id="lastname"
+                class="form-control"
+                formControlName="lastname"
               />
             </div>
             <div class="form-group">
-              <label for="password" class="text">Last Name</label><br />
+              <label for="email" class="text">Email</label><br />
               <input
                 type="text"
-                name="password"
-                id="password"
+                name="email"
+                id="email"
                 class="form-control"
+                formControlName="email"
+                [ngClass]="{
+                  'is-invalid': email.invalid && email.hasError('email')
+                }"
               />
-            </div>
-            <div class="form-group">
-              <label for="password" class="text">Email</label><br />
-              <input
-                type="text"
-                name="password"
-                id="password"
-                class="form-control"
-              />
+              <div
+                class="invalid-feedback"
+                *ngIf="email.invalid && email.hasError('email')"
+              >
+                Invalid email address
+              </div>
             </div>
             <div class="form-group">
               <label for="password" class="text">Password</label><br />
               <input
-                type="text"
+                type="password"
                 name="password"
                 id="password"
                 class="form-control"
+                formControlName="password"
+                required
               />
             </div>
             <div class="form-group">
-              <label for="password" class="text">Confirm password</label><br />
+              <label for="confirm-password" class="text">Repeat password</label
+              ><br />
               <input
-                type="text"
-                name="password"
-                id="password"
+                type="password"
+                name="confirm-password"
+                id="confirm-password"
                 class="form-control"
+                formControlName="repeatPassword"
+                [ngClass]="{
+                  'is-invalid':
+                    repeatPassword.invalid &&
+                    repeatPassword.hasError('passwordMatch')
+                }"
               />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  repeatPassword.invalid &&
+                  repeatPassword.hasError('passwordMatch')
+                "
+              >
+                Password mismatch
+              </div>
             </div>
             <div class="form-group register">
-              <input
-                type="submit"
-                name="submit"
-                class="btn btn-primary btn-md"
-                value="Create Account"
-              />
+              <button type="submit" class="btn btn-primary btn-md">
+                Create Account
+              </button>
               <a [routerLink]="['/auth/login']" class="text"
                 >Already Have an account, Sign in</a
               >

@@ -44,20 +44,12 @@ export class AuthService {
     email: string,
     password: string
   ): Observable<User> {
-    return this.http
-      .post<AuthResponse>(environment.apiUrl + '/api/auth/register', {
-        name,
-        lastname,
-        email,
-        password,
-      })
-      .pipe(
-        tap(({ token, user }) => {
-          this.setUser(user);
-          this.localStorage.setObject(this.tokenKey, token);
-        }),
-        pluck('user')
-      );
+    return this.http.post<User>(environment.apiUrl + '/auth/register', {
+      name,
+      lastname,
+      email,
+      password,
+    });
   }
 
   setUser(user: User | null): void {

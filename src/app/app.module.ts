@@ -6,9 +6,10 @@ import { LayoutsModule } from '@layouts/layouts.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 
+import { AuthHeaderInterceptor } from '@shared/interceptors';
+import { SharedModule } from '@shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthHeaderInterceptor } from '@shared/interceptors';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { AuthHeaderInterceptor } from '@shared/interceptors';
     NgbModule,
     HttpClientModule,
     StoreModule,
+    SharedModule,
   ],
   providers: [
     {
