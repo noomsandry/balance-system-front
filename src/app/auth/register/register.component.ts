@@ -36,6 +36,37 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  passwordsMatchValidator(control: FormControl): ValidationErrors | null {
+    const password = control.root.get('password');
+    return password && control.value !== password.value
+      ? {
+          passwordMatch: true,
+        }
+      : null;
+  }
+
+  register(): void {
+    this.submited = true;
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    const { repeatPassword, ...user } = this.registerForm.getRawValue();
+
+    this.authService.register(user).subscribe((user) => {
+      if (user) {
+        this.toastService.show('User registration successful ! Please Login.', {
+          classname: 'bg-success text-light',
+          delay: 3000,
+        });
+        /**
+         * redirect to login page
+         */
+        setTimeout(() => this.router.navigate(['/auth/login']), 2000);
+      }
+    });
+  }
+
   get name(): AbstractControl {
     return this.registerForm.get('name')!;
   }
@@ -54,40 +85,5 @@ export class RegisterComponent implements OnInit {
 
   get repeatPassword(): AbstractControl {
     return this.registerForm.get('repeatPassword')!;
-  }
-
-  passwordsMatchValidator(control: FormControl): ValidationErrors | null {
-    const password = control.root.get('password');
-    return password && control.value !== password.value
-      ? {
-          passwordMatch: true,
-        }
-      : null;
-  }
-
-  register(): void {
-    this.submited = true;
-    if (this.registerForm.invalid) {
-      return;
-    }
-    const { name, lastname, email, password } = this.registerForm.getRawValue();
-
-    this.authService
-      .register(name, lastname, email, password)
-      .subscribe((user) => {
-        if (user) {
-          this.toastService.show(
-            'User registration successful ! Please Login.',
-            {
-              classname: 'bg-success text-light',
-              delay: 3000,
-            }
-          );
-          /**
-           * redirect to login page
-           */
-          setTimeout(() => this.router.navigate(['/auth/login']), 2000);
-        }
-      });
   }
 }

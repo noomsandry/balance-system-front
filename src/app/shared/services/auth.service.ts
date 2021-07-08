@@ -23,12 +23,9 @@ export class AuthService {
     private localStorage: LocalStorageProvider
   ) {}
 
-  login(email: string, password: string): Observable<User> {
+  login(info): Observable<User> {
     return this.http
-      .post<AuthResponse>(environment.apiUrl + '/api/auth/login', {
-        email,
-        password,
-      })
+      .post<AuthResponse>(environment.apiUrl + '/auth/login', info)
       .pipe(
         tap(({ token, user }) => {
           this.setUser(user);
@@ -38,18 +35,8 @@ export class AuthService {
       );
   }
 
-  register(
-    name: string,
-    lastname: string,
-    email: string,
-    password: string
-  ): Observable<User> {
-    return this.http.post<User>(environment.apiUrl + '/auth/register', {
-      name,
-      lastname,
-      email,
-      password,
-    });
+  register(user): Observable<User> {
+    return this.http.post<User>(environment.apiUrl + '/auth/register', user);
   }
 
   setUser(user: User | null): void {
@@ -67,12 +54,10 @@ export class AuthService {
       return EMPTY;
     }
 
-    return this.http
-      .get<AuthResponse>(environment.apiUrl + '/api/auth/me')
-      .pipe(
-        tap(({ user }) => this.setUser(user)),
-        pluck('user')
-      );
+    return this.http.get<AuthResponse>(environment.apiUrl + '/auth/me').pipe(
+      tap(({ user }) => this.setUser(user)),
+      pluck('user')
+    );
   }
 
   signOut(): void {
