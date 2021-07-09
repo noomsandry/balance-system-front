@@ -40,7 +40,6 @@ export class AuthService {
   }
 
   setUser(user: User | null): void {
-    console.log('SET USER', user);
     this.user$.next(user);
   }
 

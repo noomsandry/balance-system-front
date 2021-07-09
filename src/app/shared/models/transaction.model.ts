@@ -11,4 +11,5 @@ export class Transaction {
   amount: number;
   type: TRANSACTION_TYPE;
   date: Date;
+  balance: number;
 }

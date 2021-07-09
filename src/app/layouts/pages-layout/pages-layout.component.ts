@@ -30,7 +30,7 @@ export class PagesLayoutComponent implements OnInit, OnDestroy {
   }
 
   setPageTitle() {
-    const node = this._activeRoute.snapshot.firstChild.firstChild;
+    const node = this._activeRoute.snapshot.firstChild.firstChild.firstChild;
     if (!node) return;
     document.title = node.data.title;
     this.pageTitle = node.data.title;

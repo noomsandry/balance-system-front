@@ -1,0 +1,10 @@
+<div class="card" style="width: 18rem" *ngIf="user">
+  <div class="card-header">
+    {{ user.name | uppercase }} {{ user.lastname | titlecase }}
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      Current balance : {{ user.account?.balance | dollar }}
+    </li>
+  </ul>
+</div>

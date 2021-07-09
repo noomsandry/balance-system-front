@@ -16,5 +16,12 @@
       <button class="btn btn-primary" (click)="logOut()">Log Out</button>
     </div>
   </nav>
-  <router-outlet></router-outlet>
+  <div class="row">
+    <div class="col-md-9">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="col-md-3">
+      <app-user-account-info></app-user-account-info>
+    </div>
+  </div>
 </div>
