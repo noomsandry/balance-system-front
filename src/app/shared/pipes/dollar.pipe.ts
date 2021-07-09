@@ -3,11 +3,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'dollar' })
 export class DollarPipe implements PipeTransform {
   transform(value): string {
-    value = parseInt(value, 10);
-    if (Number.isInteger(value)) {
-      return `${value
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ${' $'}`;
-    }
+    var formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+    return formatter.format(value);
   }
 }

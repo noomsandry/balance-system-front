@@ -19,7 +19,7 @@ export class TransactionFormComponent implements OnInit {
   ngOnInit(): void {
     this.transactionForm = this._fb.group({
       type: [TRANSACTION_TYPE.DEPOSITE, Validators.required],
-      amount: [0, Validators.required],
+      amount: [0, [Validators.required, Validators.min(0)]],
       description: ['', Validators.required],
     });
   }

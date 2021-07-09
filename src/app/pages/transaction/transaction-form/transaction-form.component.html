@@ -31,9 +31,24 @@
           <div
             id="validationServer03Feedback"
             class="invalid-feedback"
-            *ngIf="submitted && transactionForm.controls.amount.errors"
+            *ngIf="
+              submitted &&
+              transactionForm.controls.amount.errors &&
+              transactionForm.controls.amount.errors.required
+            "
           >
             Amount input is required value
+          </div>
+          <div
+            id="validationServer03Feedback"
+            class="invalid-feedback"
+            *ngIf="
+              submitted &&
+              transactionForm.controls.amount.errors &&
+              transactionForm.controls.amount.errors.min
+            "
+          >
+            Value must be greter than zero
           </div>
         </div>
       </div>
