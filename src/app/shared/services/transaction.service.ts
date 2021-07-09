@@ -14,6 +14,13 @@ export class TransactionService {
 
   list(): Observable<Transaction[]> {
     let path = `${environment.apiUrl}/transaction`;
-    return this._http.get(`${path}`).pipe(map((data: any) => data.data));
+    return this._http.get(`${path}`).pipe(map((data: Transaction[]) => data));
+  }
+
+  create(transaction: Transaction): Observable<Transaction> {
+    let path = `${environment.apiUrl}/transaction`;
+    return this._http
+      .post(`${path}`, transaction)
+      .pipe(map((data: Transaction) => data));
   }
 }

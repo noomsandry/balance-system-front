@@ -1,7 +1,7 @@
-import { Account } from "./account.model";
+import { Account } from './account.model';
 
 export class User {
-  user_id: number;
+  id: number;
   name: string;
   lastname: string;
   email: string;

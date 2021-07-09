@@ -1,4 +1,4 @@
 export class Account {
-  account_id: number;
+  id: number;
   balance: number;
 }

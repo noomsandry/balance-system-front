@@ -11,26 +11,30 @@ export class TransactionFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter();
   @Output() onCancel = new EventEmitter();
 
-  form: FormGroup;
+  transactionForm: FormGroup;
   submitted: boolean;
 
   constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.form = this._fb.group({
-      account_id: [this.transaction.account_id],
-      description: ['', Validators.required],
+    this.transactionForm = this._fb.group({
+      type: [TRANSACTION_TYPE.DEPOSITE, Validators.required],
       amount: [0, Validators.required],
-      type: [TRANSACTION_TYPE.WITHDRAWN, Validators.required],
-      date: [new Date()],
+      description: ['', Validators.required],
     });
   }
 
   submit() {
     this.submitted = true;
-    if (this.form.valid) {
-      const transaction = this.form.value;
+    if (this.transactionForm.valid) {
+      const transaction = this.transactionForm.value;
       this.onSubmit.emit(transaction);
+      this.transactionForm.patchValue({
+        type: TRANSACTION_TYPE.DEPOSITE,
+        amount: 0,
+        description: '',
+      });
+      this.submitted = false;
     }
   }
 

@@ -22,6 +22,21 @@ export class TransactionEffects {
     )
   );
 
+  create$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TransactionActions.createTransaction),
+      mergeMap(({ transaction }) =>
+        this.transactionService.create(transaction).pipe(
+          map((item) => {
+            return TransactionActions.TransactionCreated({
+              transaction: item,
+            });
+          })
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private transactionService: TransactionService

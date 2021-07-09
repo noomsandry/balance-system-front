@@ -5,7 +5,7 @@ import * as TransactionActions from './transaction.action';
 
 export const adapter: EntityAdapter<Transaction> =
   createEntityAdapter<Transaction>({
-    selectId: (entry) => entry.transaction_id,
+    selectId: (entry) => entry.id,
   });
 
 export const { selectAll, selectEntities, selectIds, selectTotal } =

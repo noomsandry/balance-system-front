@@ -1,1 +1,30 @@
-<p>transaction-list works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Debit</th>
+      <th>Credit</th>
+      <th>Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <td>{{ transaction.createdAt | date: "dd/MM/yyyy HH:mm:ss" }}</td>
+      <td>{{ transaction.type }}</td>
+      <td>{{ transaction.description }}</td>
+      <td>
+        <b *ngIf="transaction.type === TRANSACTION_TYPE.WITHDRAWN">
+          {{ transaction.amount }}</b
+        >
+      </td>
+      <td>
+        <b *ngIf="transaction.type === TRANSACTION_TYPE.DEPOSITE">
+          {{ transaction.amount }}</b
+        >
+      </td>
+      <td>{{ transaction.balance }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -13,6 +13,7 @@ import { TransactionRoutingModule } from './transaction-routing.module';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransactionFormComponent } from './transaction-form/transaction-form.component';
 import { TransactionComponent } from './transaction.component';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { TransactionComponent } from './transaction.component';
       maxAge: 25,
       logOnly: environment.production,
     }),
+    SharedModule,
   ],
 })
 export class TransactionModule {}

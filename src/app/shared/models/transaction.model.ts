@@ -1,9 +1,11 @@
+import { Account } from './account.model';
+
 export enum TRANSACTION_TYPE {
   WITHDRAWN = 'WITHDRAWN',
   DEPOSITE = 'DEPOSITE',
 }
 export class Transaction {
-  transaction_id: number;
+  id: number;
   account_id: number;
   description: string;
   amount: number;
